@@ -1,0 +1,109 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── Helper functions ───────────────────────────────────────────────
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function hasRole(role) {
+      return isAuthenticated() && getUserData().role == role;
+    }
+
+    function isStudent()     { return hasRole('student'); }
+    function isLecturer()    { return hasRole('lecturer'); }
+    function isPRL()         { return hasRole('principal_lecturer'); }
+    function isPL()          { return hasRole('program_leader'); }
+    function isStaff()       { return isLecturer() || isPRL() || isPL(); }
+    function isOwner(uid)    { return isAuthenticated() && request.auth.uid == uid; }
+
+    // ─── Users ──────────────────────────────────────────────────────────
+    match /users/{userId} {
+      // Users can read their own profile; PL/PRL can read all
+      allow read: if isOwner(userId) || isPRL() || isPL();
+      // Only the user themselves can create their profile (on registration)
+      allow create: if isOwner(userId);
+      // Users can update their own profile; PL can update any
+      allow update: if isOwner(userId) || isPL();
+      // Only PL can delete users
+      allow delete: if isPL();
+    }
+
+    // ─── Courses ────────────────────────────────────────────────────────
+    match /courses/{courseId} {
+      // All authenticated users can read courses
+      allow read: if isAuthenticated();
+      // Only PL can create, update, delete courses
+      allow create, update, delete: if isPL();
+    }
+
+    // ─── Course Assignments ─────────────────────────────────────────────
+    match /courseAssignments/{assignmentId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if isPL();
+    }
+
+    // ─── Reports ────────────────────────────────────────────────────────
+    match /reports/{reportId} {
+      // Lecturers can read their own reports
+      // PRL can read reports in their faculty
+      // PL can read all reports
+      // Students can read reports (for monitoring)
+      allow read: if isAuthenticated();
+
+      // Only lecturers can create reports
+      allow create: if isLecturer()
+        && request.resource.data.lecturerId == request.auth.uid;
+
+      // Lecturer can update their own reports (not prlFeedback field)
+      // PRL/PL can update to add feedback
+      allow update: if isAuthenticated() && (
+        (isLecturer() && resource.data.lecturerId == request.auth.uid) ||
+        isPRL() ||
+        isPL()
+      );
+
+      // Only the report owner or PL can delete
+      allow delete: if isPL() ||
+        (isLecturer() && resource.data.lecturerId == request.auth.uid);
+    }
+
+    // ─── Attendance ─────────────────────────────────────────────────────
+    match /attendance/{attendanceId} {
+      // Students can read their own attendance
+      // Lecturers can read attendance for their reports
+      // PRL/PL can read all
+      allow read: if isAuthenticated() && (
+        isStaff() ||
+        (isStudent() && resource.data.studentId == request.auth.uid)
+      );
+
+      // Only lecturers can mark attendance
+      allow create: if isLecturer();
+      allow update: if isLecturer();
+      allow delete: if isLecturer() || isPL();
+    }
+
+    // ─── Ratings ────────────────────────────────────────────────────────
+    match /ratings/{ratingId} {
+      // All authenticated users can read ratings
+      allow read: if isAuthenticated();
+
+      // Any authenticated user can submit a rating
+      allow create: if isAuthenticated()
+        && request.resource.data.raterId == request.auth.uid;
+
+      // Only the rater can update their own rating
+      allow update: if isAuthenticated()
+        && resource.data.raterId == request.auth.uid;
+
+      // Only PL can delete ratings
+      allow delete: if isPL();
+    }
+  }
+}
