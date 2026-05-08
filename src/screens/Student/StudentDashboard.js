@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Text, StyleSheet, ScrollView, FlatList,
+View, Text, StyleSheet, ScrollView, FlatList, TouchableOpacity,
 } from 'react-native';
 import { COLORS, FONTS } from '../../config/theme';
 import {
   Card, ScreenHeader, EmptyState, LoadingScreen, Button, SearchBar, Badge,
 } from '../../components/UIComponents';
 import { subscribeStudentAttendance } from '../../services/attendanceService';
+import { logoutUser } from '../../services/authService';
 import { useAuth } from '../../hooks/useAuth';
 
 export default function StudentDashboard({ navigation }) {
@@ -39,9 +40,14 @@ export default function StudentDashboard({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
       <ScreenHeader
-        title="My Dashboard"
-        subtitle={`Welcome, ${userData?.name?.split(' ')[0] || 'Student'}`}
-      />
+  title="My Dashboard"
+  subtitle={`Welcome, ${userData?.name?.split(' ')[0] || 'Student'}`}
+  right={
+    <TouchableOpacity onPress={async () => { await logoutUser(); }}>
+      <Text style={{color:'#C9A84C', fontWeight:'700', fontSize:14}}>Logout</Text>
+    </TouchableOpacity>
+  }
+/>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
         {/* Stats Row */}
