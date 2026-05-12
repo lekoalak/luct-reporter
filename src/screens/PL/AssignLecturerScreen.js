@@ -79,7 +79,7 @@ export default function AssignLecturerScreen({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
       <TopBar title="Assign Courses" navigation={navigation} showBack={true} />
-      <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
+      <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 40 }} style={{ flex: 1 }}>
 
         <Card style={{ marginBottom: 20 }}>
           <Text style={styles.cardTitle}>New Assignment</Text>
