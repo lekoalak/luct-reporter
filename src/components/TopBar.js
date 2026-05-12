@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { COLORS, FONTS } from '../config/theme';
 import { logoutUser } from '../services/authService';
 import { showAlert } from '../utils/alert';
 
@@ -22,15 +21,14 @@ export default function TopBar({ title, subtitle, navigation, showBack = false }
   return (
     <View style={styles.bar}>
       <View style={styles.side}>
-        {showBack ? (
+        {showBack && (
           <TouchableOpacity onPress={() => navigation?.goBack()} style={styles.backBtn}>
             <Text style={styles.backText}>← Back</Text>
           </TouchableOpacity>
-        ) : null}
+        )}
       </View>
       <View style={styles.center}>
-     <Text style={styles.title} numberOfLines={1}>{title}</Text>
-{role ? <Text style={styles.role}>{role}</Text> : null}
+        <Text style={styles.title} numberOfLines={1}>{title}</Text>
         {subtitle ? <Text style={styles.subtitle} numberOfLines={1}>{subtitle}</Text> : null}
       </View>
       <View style={styles.side}>

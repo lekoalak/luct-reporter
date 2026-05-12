@@ -1,15 +1,10 @@
-import TopBar from '../../components/TopBar';
 import React, { useState, useEffect } from 'react';
-import {
-View, Text, StyleSheet, ScrollView, FlatList, TouchableOpacity,
-} from 'react-native';
-import { COLORS, FONTS } from '../../config/theme';
-import {
-  Card, ScreenHeader, EmptyState, LoadingScreen, Button, SearchBar, Badge,
-} from '../../components/UIComponents';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { COLORS } from '../../config/theme';
+import { Card, EmptyState, LoadingScreen, SearchBar, Badge } from '../../components/UIComponents';
 import { subscribeStudentAttendance } from '../../services/attendanceService';
-import { logoutUser } from '../../services/authService';
 import { useAuth } from '../../hooks/useAuth';
+import TopBar from '../../components/TopBar';
 
 export default function StudentDashboard({ navigation }) {
   const { user, userData } = useAuth();
@@ -40,128 +35,146 @@ export default function StudentDashboard({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
-    <TopBar title="Student Portal" subtitle={`Welcome, ${userData?.name?.split(' ')[0] || 'Student'}`} navigation={navigation} showBack={false} />
-      
-
+      <TopBar
+        title="Student Portal"
+        subtitle={`Welcome, ${userData?.name?.split(' ')[0] || 'Student'}`}
+        navigation={navigation}
+        showBack={false}
+      />
       <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
-        {/* Stats Row */}
-        <View style={styles.statsRow}>
-          <StatCard icon="✅" value={present} label="Present" color={COLORS.success} />
-          <StatCard icon="❌" value={total - present} label="Absent" color={COLORS.error} />
-          <StatCard icon="📊" value={`${rate}%`} label="Rate" color={COLORS.navy} />
-        </View>
 
-        {/* Quick Actions */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Quick Actions</Text>
-          <View style={styles.quickRow}>
-            <QuickAction
-              icon="⭐"
-              label="Rate Lecturers"
-              onPress={() => navigation.navigate('Ratings')}
-            />
-            <QuickAction
-              icon="📋"
-              label="View Reports"
-              onPress={() => navigation.navigate('Monitoring')}
-            />
+        <View style={styles.statsRow}>
+          <View style={[styles.statCard, { borderTopColor: COLORS.success, borderTopWidth: 3 }]}>
+            <Text style={styles.statIcon}>✅</Text>
+            <Text style={[styles.statValue, { color: COLORS.success }]}>{present}</Text>
+            <Text style={styles.statLabel}>Present</Text>
+          </View>
+          <View style={[styles.statCard, { borderTopColor: COLORS.error, borderTopWidth: 3 }]}>
+            <Text style={styles.statIcon}>❌</Text>
+            <Text style={[styles.statValue, { color: COLORS.error }]}>{total - present}</Text>
+            <Text style={styles.statLabel}>Absent</Text>
+          </View>
+          <View style={[styles.statCard, { borderTopColor: COLORS.navy, borderTopWidth: 3 }]}>
+            <Text style={styles.statIcon}>📊</Text>
+            <Text style={[styles.statValue, { color: COLORS.navy }]}>{rate}%</Text>
+            <Text style={styles.statLabel}>Rate</Text>
           </View>
         </View>
 
-        {/* Attendance History */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Attendance History</Text>
-          <SearchBar value={search} onChangeText={setSearch} placeholder="Search attendance..." />
-          {filtered.length === 0 ? (
-            <EmptyState icon="📅" title="No attendance records" message="Your attendance will appear here" />
-          ) : (
-            filtered.map(item => (
-              <Card key={item.id} style={{ marginBottom: 10, marginHorizontal: 16 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <View>
-                    <Text style={styles.attDate}>
-                      {item.timestamp
-                        ? new Date(item.timestamp.seconds * 1000).toLocaleDateString('en-GB', {
-                            weekday: 'short', day: '2-digit', month: 'short', year: 'numeric',
-                          })
-                        : 'Date unavailable'}
-                    </Text>
-                    <Text style={styles.attReport}>Report ID: {item.reportId?.slice(-6) || '—'}</Text>
-                  </View>
-                  <Badge
-                    label={item.status === 'present' ? '✓ Present' : '✗ Absent'}
-                    color={item.status === 'present' ? COLORS.success : COLORS.error}
-                  />
-                </View>
-              </Card>
-            ))
-          )}
+        <Text style={styles.sectionTitle}>Quick Actions</Text>
+        <View style={styles.quickRow}>
+          <Card style={styles.quickCard} onPress={() => navigation.navigate('Ratings')}>
+            <Text style={styles.quickIcon}>⭐</Text>
+            <Text style={styles.quickLabel}>Rate Lecturers</Text>
+          </Card>
+          <Card style={styles.quickCard} onPress={() => navigation.navigate('Monitoring')}>
+            <Text style={styles.quickIcon}>📋</Text>
+            <Text style={styles.quickLabel}>View Reports</Text>
+          </Card>
         </View>
+
+        <Text style={styles.sectionTitle}>Attendance History</Text>
+        <SearchBar value={search} onChangeText={setSearch} placeholder="Search attendance..." />
+        {filtered.length === 0 ? (
+          <EmptyState icon="📅" title="No attendance records" message="Your attendance will appear here" />
+        ) : (
+          filtered.map(item => (
+            <Card key={item.id} style={styles.attCard}>
+              <View style={styles.attRow}>
+                <View>
+                  <Text style={styles.attDate}>
+                    {item.timestamp
+                      ? new Date(item.timestamp.seconds * 1000).toLocaleDateString('en-GB')
+                      : 'Date unavailable'}
+                  </Text>
+                  <Text style={styles.attReport}>ID: {item.reportId?.slice(-6) || '-'}</Text>
+                </View>
+                <Badge
+                  label={item.status === 'present' ? 'Present' : 'Absent'}
+                  color={item.status === 'present' ? COLORS.success : COLORS.error}
+                />
+              </View>
+            </Card>
+          ))
+        )}
       </ScrollView>
     </View>
   );
 }
 
-const StatCard = ({ icon, value, label, color }) => (
-  <View style={[styles.statCard, { borderTopColor: color, borderTopWidth: 3 }]}>
-    <Text style={styles.statIcon}>{icon}</Text>
-    <Text style={[styles.statValue, { color }]}>{value}</Text>
-    <Text style={styles.statLabel}>{label}</Text>
-  </View>
-);
-
-const QuickAction = ({ icon, label, onPress }) => (
-  <Card style={styles.quickCard} onPress={onPress}>
-    <Text style={styles.quickIcon}>{icon}</Text>
-    <Text style={styles.quickLabel}>{label}</Text>
-  </Card>
-);
-
 const styles = StyleSheet.create({
   statsRow: {
     flexDirection: 'row',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
+    padding: 16,
     gap: 10,
   },
   statCard: {
     flex: 1,
-    backgroundColor: COLORS.white,
+    backgroundColor: '#fff',
     borderRadius: 12,
     padding: 14,
     alignItems: 'center',
-    shadowColor: COLORS.navy,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.07,
-    shadowRadius: 6,
     elevation: 3,
   },
-  statIcon: { fontSize: 20, marginBottom: 6 },
-  statValue: { fontSize: FONTS.sizes.xxl, fontWeight: '900' },
-  statLabel: { fontSize: FONTS.sizes.xs, color: COLORS.gray, marginTop: 2 },
-
-  section: { marginBottom: 8 },
+  statIcon: {
+    fontSize: 20,
+    marginBottom: 6,
+  },
+  statValue: {
+    fontSize: 24,
+    fontWeight: '900',
+  },
+  statLabel: {
+    fontSize: 11,
+    color: '#9AA5B4',
+    marginTop: 2,
+  },
   sectionTitle: {
-    fontSize: FONTS.sizes.md,
+    fontSize: 15,
     fontWeight: '800',
-    color: COLORS.navy,
+    color: '#002147',
     paddingHorizontal: 16,
     marginBottom: 12,
     marginTop: 8,
   },
-
-  quickRow: { flexDirection: 'row', gap: 10, paddingHorizontal: 16 },
+  quickRow: {
+    flexDirection: 'row',
+    gap: 10,
+    paddingHorizontal: 16,
+    marginBottom: 8,
+  },
   quickCard: {
     flex: 1,
     alignItems: 'center',
     paddingVertical: 20,
     marginBottom: 0,
   },
-  quickIcon: { fontSize: 28, marginBottom: 8 },
-  quickLabel: { fontSize: FONTS.sizes.sm, fontWeight: '600', color: COLORS.navy },
-
-  attDate: { fontSize: FONTS.sizes.md, fontWeight: '600', color: COLORS.black },
-  attReport: { fontSize: FONTS.sizes.xs, color: COLORS.gray, marginTop: 2 },
+  quickIcon: {
+    fontSize: 28,
+    marginBottom: 8,
+  },
+  quickLabel: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#002147',
+  },
+  attCard: {
+    marginBottom: 10,
+    marginHorizontal: 16,
+  },
+  attRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  attDate: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#1A202C',
+  },
+  attReport: {
+    fontSize: 11,
+    color: '#9AA5B4',
+    marginTop: 2,
+  },
 });
-
-
