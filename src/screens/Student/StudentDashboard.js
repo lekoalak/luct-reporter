@@ -63,7 +63,7 @@ export default function StudentDashboard({ navigation }) {
 
         <Text style={styles.sectionTitle}>Quick Actions</Text>
         <View style={styles.quickRow}>
-          <Card style={styles.quickCard} onPress={() => navigation.navigate('Ratings')}>
+          <Card style={styles.quickCard} onPress={() => navigation.navigate('StudentRatings')}>
             <Text style={styles.quickIcon}>⭐</Text>
             <Text style={styles.quickLabel}>Rate Lecturers</Text>
           </Card>

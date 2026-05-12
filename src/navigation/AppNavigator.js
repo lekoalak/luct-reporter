@@ -19,6 +19,8 @@ import LecturerDashboard from '../screens/Lecturer/LecturerDashboard';
 import LecturerReportsScreen from '../screens/Lecturer/LecturerReportsScreen';
 import SubmitReportScreen from '../screens/Lecturer/SubmitReportScreen';
 import AttendanceScreen from '../screens/Lecturer/AttendanceScreen';
+import AssignLecturerScreen from '../screens/PL/AssignLecturerScreen';
+import StudentRatingsScreen from '../screens/Student/StudentRatingsScreen';
 
 // Student screens
 import StudentDashboard from '../screens/Student/StudentDashboard';
@@ -209,6 +211,8 @@ function RootNavigator() {
           <Stack.Screen name="SubmitReport" component={SubmitReportScreen} />
           <Stack.Screen name="ReportDetail" component={ReportDetailScreen} />
           <Stack.Screen name="Rating" component={RatingScreen} />
+          <Stack.Screen name="AssignLecturer" component={AssignLecturerScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="StudentRatings" component={StudentRatingsScreen} options={{ headerShown: false }} />
         </>
       )}
     </Stack.Navigator>

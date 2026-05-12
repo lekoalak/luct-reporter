@@ -80,6 +80,9 @@ export default function PLDashboard({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
     <TopBar title="Program Leader Portal" subtitle="University Overview" navigation={navigation} showBack={false} />
+    <TouchableOpacity style={{ backgroundColor: '#C9A84C', borderRadius: 8, padding: 14, alignItems: 'center', margin: 16 }} onPress={() => navigation.navigate('AssignLecturer')}>
+  <Text style={{ color: '#002147', fontWeight: '800', fontSize: 14 }}>📋 Assign Courses to Lecturers</Text>
+</TouchableOpacity>
       
 
       {/* Stats Banner */}
