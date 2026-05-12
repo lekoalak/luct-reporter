@@ -1,3 +1,4 @@
+import TopBar from '../../components/TopBar';
 import React, { useState, useEffect } from 'react';
 import {
 View, Text, StyleSheet, ScrollView, FlatList, TouchableOpacity,
@@ -39,6 +40,7 @@ export default function StudentDashboard({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
+    <TopBar title="My Dashboard" subtitle={`Welcome, ${userData?.name?.split(' ')[0] || 'Student'}`} navigation={navigation} showBack={false} />
       <ScreenHeader
   title="My Dashboard"
   subtitle={`Welcome, ${userData?.name?.split(' ')[0] || 'Student'}`}

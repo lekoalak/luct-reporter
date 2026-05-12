@@ -1,3 +1,4 @@
+import TopBar from '../../components/TopBar';
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, FlatList, Alert,
@@ -57,6 +58,7 @@ export default function RatingScreen({ route }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
+    <TopBar title="Ratings" navigation={navigation} showBack={true} />
       <ScreenHeader title="Ratings" subtitle={targetName} />
 
       <FlatList

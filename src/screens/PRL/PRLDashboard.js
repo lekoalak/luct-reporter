@@ -1,3 +1,4 @@
+import TopBar from '../../components/TopBar';
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, FlatList, TouchableOpacity,
@@ -45,6 +46,7 @@ export default function PRLDashboard({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
+    <TopBar title="PRL Dashboard" subtitle={userData?.faculty?.replace('Faculty of ', '') || 'My Faculty'} navigation={navigation} showBack={false} />
       <ScreenHeader
         title="PRL Dashboard"
         subtitle={userData?.faculty?.replace('Faculty of ', '') || 'My Faculty'}

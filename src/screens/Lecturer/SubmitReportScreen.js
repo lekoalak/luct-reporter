@@ -1,3 +1,4 @@
+import TopBar from '../../components/TopBar';
 import React, { useState } from 'react';
 import {
   View, Text, StyleSheet, ScrollView,
@@ -83,6 +84,7 @@ export default function SubmitReportScreen({ navigation }) {
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
+      <TopBar title="Submit Report" navigation={navigation} showBack={true} />
         <ScreenHeader title="Submit Report" subtitle="Lecture Reporting Form" />
 
         <View style={styles.body}>

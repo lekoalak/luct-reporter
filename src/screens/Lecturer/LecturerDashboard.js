@@ -1,3 +1,4 @@
+import TopBar from '../../components/TopBar';
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, ScrollView, TouchableOpacity,
@@ -32,6 +33,7 @@ export default function LecturerDashboard({ navigation }) {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
+    <TopBar title="Lecturer Portal" subtitle={`Welcome, ${userData?.name?.split(' ')[0] || ''}`} navigation={navigation} showBack={false} />
       <ScreenHeader
         title="Lecturer Portal"
         subtitle={`Welcome, ${userData?.name?.split(' ')[0]}`}

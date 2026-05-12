@@ -1,3 +1,4 @@
+import TopBar from '../../components/TopBar';
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, ScrollView, Alert,
@@ -58,6 +59,7 @@ export default function ReportDetailScreen({ route, navigation }) {
 
   return (
     <ScrollView style={styles.container}>
+    <TopBar title="Report Detail" navigation={navigation} showBack={true} />
       <ScreenHeader title="Report Detail" subtitle={report.courseCode} />
 
       <View style={styles.body}>

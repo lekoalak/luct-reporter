@@ -1,3 +1,4 @@
+import TopBar from '../../components/TopBar';
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, FlatList, TouchableOpacity, Alert,
@@ -59,6 +60,7 @@ export default function LecturerReportsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+    <TopBar title="My Reports" navigation={navigation} showBack={false} />
       <ScreenHeader
         title="My Reports"
         subtitle={`${reports.length} report${reports.length !== 1 ? 's' : ''} submitted`}

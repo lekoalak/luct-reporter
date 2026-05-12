@@ -14,6 +14,7 @@ import ReportDetailScreen from '../screens/Shared/ReportDetailScreen';
 import RatingScreen from '../screens/Shared/RatingScreen';
 
 // Lecturer screens
+import LecturerRatingsScreen from '../screens/Lecturer/LecturerRatingsScreen';
 import LecturerDashboard from '../screens/Lecturer/LecturerDashboard';
 import LecturerReportsScreen from '../screens/Lecturer/LecturerReportsScreen';
 import SubmitReportScreen from '../screens/Lecturer/SubmitReportScreen';

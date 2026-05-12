@@ -1,3 +1,4 @@
+import TopBar from '../../components/TopBar';
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, FlatList, Alert, TouchableOpacity, ScrollView,
@@ -78,6 +79,7 @@ export default function PLDashboard({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
+    <TopBar title="Program Leader" subtitle="University Overview" navigation={navigation} showBack={false} />
       <ScreenHeader title="Program Leader" subtitle="University Overview" />
 
       {/* Stats Banner */}

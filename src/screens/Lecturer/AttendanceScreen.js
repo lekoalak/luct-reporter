@@ -1,3 +1,4 @@
+import TopBar from '../../components/TopBar';
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, FlatList, TouchableOpacity, Alert,
@@ -62,6 +63,7 @@ export default function AttendanceScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
+    <TopBar title="Attendance" navigation={navigation} showBack={false} />
       <ScreenHeader
         title={selectedReport ? 'Attendance' : 'Select Class'}
         subtitle={selectedReport ? `${selectedReport.courseCode} · ${selectedReport.className}` : 'Choose a report to view attendance'}
