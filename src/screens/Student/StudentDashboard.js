@@ -41,15 +41,7 @@ export default function StudentDashboard({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
     <TopBar title="Student Portal" subtitle={`Welcome, ${userData?.name?.split(' ')[0] || 'Student'}`} navigation={navigation} showBack={false} />
-      <ScreenHeader
-  title="Student Portal"
-  subtitle={`Welcome, ${userData?.name?.split(' ')[0] || 'Student'}`}
-  right={
-    <TouchableOpacity onPress={async () => { await logoutUser(); }}>
-      <Text style={{color:'#C9A84C', fontWeight:'700', fontSize:14}}>Logout</Text>
-    </TouchableOpacity>
-  }
-/>
+      
 
       <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
         {/* Stats Row */}
@@ -171,3 +163,5 @@ const styles = StyleSheet.create({
   attDate: { fontSize: FONTS.sizes.md, fontWeight: '600', color: COLORS.black },
   attReport: { fontSize: FONTS.sizes.xs, color: COLORS.gray, marginTop: 2 },
 });
+
+
