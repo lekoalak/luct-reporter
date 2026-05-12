@@ -46,9 +46,9 @@ export default function PRLDashboard({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
-    <TopBar title="PRL Dashboard" subtitle={userData?.faculty?.replace('Faculty of ', '') || 'My Faculty'} navigation={navigation} showBack={false} />
+    <TopBar title="PRL Portal" subtitle={userData?.faculty?.replace('Faculty of ', '') || 'My Faculty'} navigation={navigation} showBack={false} />
       <ScreenHeader
-        title="PRL Dashboard"
+        title="PRL Portal"
         subtitle={userData?.faculty?.replace('Faculty of ', '') || 'My Faculty'}
       />
 

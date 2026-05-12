@@ -79,7 +79,7 @@ export default function PLDashboard({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
-    <TopBar title="Program Leader" subtitle="University Overview" navigation={navigation} showBack={false} />
+    <TopBar title="Program Leader Portal" subtitle="University Overview" navigation={navigation} showBack={false} />
       
 
       {/* Stats Banner */}

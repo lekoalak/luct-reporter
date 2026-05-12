@@ -29,7 +29,8 @@ export default function TopBar({ title, subtitle, navigation, showBack = false }
         ) : null}
       </View>
       <View style={styles.center}>
-        <Text style={styles.title} numberOfLines={1}>{title}</Text>
+     <Text style={styles.title} numberOfLines={1}>{title}</Text>
+{role ? <Text style={styles.role}>{role}</Text> : null}
         {subtitle ? <Text style={styles.subtitle} numberOfLines={1}>{subtitle}</Text> : null}
       </View>
       <View style={styles.side}>

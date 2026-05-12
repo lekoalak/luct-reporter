@@ -34,17 +34,10 @@ export default function LecturerDashboard({ navigation }) {
   return (
     <ScrollView style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
     <TopBar title="Lecturer Portal" subtitle={`Welcome, ${userData?.name?.split(' ')[0] || ''}`} navigation={navigation} showBack={false} />
-      <ScreenHeader
-        title="Lecturer Portal"
-        subtitle={`Welcome, ${userData?.name?.split(' ')[0]}`}
-      />
+      
+      
 
-      {/* Hero Card */}
-      <View style={styles.heroCard}>
-        <Text style={styles.heroGreeting}>Good {getTimeOfDay()},</Text>
-        <Text style={styles.heroName}>{userData?.name}</Text>
-        <Text style={styles.heroFaculty}>{userData?.faculty?.replace('Faculty of ', '')}</Text>
-      </View>
+      
 
       {/* Stats */}
       <View style={styles.statsGrid}>
