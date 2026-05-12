@@ -80,7 +80,7 @@ export default function PLDashboard({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
     <TopBar title="Program Leader" subtitle="University Overview" navigation={navigation} showBack={false} />
-      <ScreenHeader title="Program Leader" subtitle="University Overview" />
+      
 
       {/* Stats Banner */}
       <View style={styles.statsRow}>

@@ -60,7 +60,7 @@ export default function ReportDetailScreen({ route, navigation }) {
   return (
     <ScrollView style={styles.container}>
     <TopBar title="Report Detail" navigation={navigation} showBack={true} />
-      <ScreenHeader title="Report Detail" subtitle={report.courseCode} />
+      
 
       <View style={styles.body}>
         {/* Attendance Summary Card */}
