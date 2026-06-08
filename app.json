@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#002147"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.luct.reporter"
@@ -26,6 +28,14 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": []
+    "plugins": [
+      "expo-sharing",
+      "expo-status-bar"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "37c5fc4b-7f62-4d33-a2bc-38c1ccce837e"
+      }
+    }
   }
 }
