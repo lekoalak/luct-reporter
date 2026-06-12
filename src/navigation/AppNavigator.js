@@ -14,6 +14,7 @@ import ReportDetailScreen from '../screens/Shared/ReportDetailScreen';
 import RatingScreen from '../screens/Shared/RatingScreen';
 
 // Lecturer screens
+import MarkAttendanceScreen from '../screens/Lecturer/MarkAttendanceScreen';
 import LecturerRatingsScreen from '../screens/Lecturer/LecturerRatingsScreen';
 import LecturerDashboard from '../screens/Lecturer/LecturerDashboard';
 import LecturerReportsScreen from '../screens/Lecturer/LecturerReportsScreen';
@@ -211,6 +212,7 @@ function RootNavigator() {
           <Stack.Screen name="SubmitReport" component={SubmitReportScreen} />
           <Stack.Screen name="ReportDetail" component={ReportDetailScreen} />
           <Stack.Screen name="Rating" component={RatingScreen} />
+          <Stack.Screen name="MarkAttendance" component={MarkAttendanceScreen} options={{ headerShown: false }} />
           <Stack.Screen name="AssignLecturer" component={AssignLecturerScreen} options={{ headerShown: false }} />
           <Stack.Screen name="StudentRatings" component={StudentRatingsScreen} options={{ headerShown: false }} />
         </>

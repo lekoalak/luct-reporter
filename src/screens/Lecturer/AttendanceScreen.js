@@ -63,7 +63,15 @@ export default function AttendanceScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.offWhite }}>
-    <TopBar title="Attendance" navigation={navigation} showBack={false} />
+      <TopBar title="Attendance" navigation={navigation} showBack={false} />
+
+      <TouchableOpacity
+        style={{ backgroundColor: '#C9A84C', borderRadius: 8, padding: 14, alignItems: 'center', margin: 16 }}
+        onPress={() => navigation.navigate('MarkAttendance')}
+      >
+        <Text style={{ color: '#002147', fontWeight: '800', fontSize: 14 }}>✓ Mark Attendance</Text>
+      </TouchableOpacity>
+
       <ScreenHeader
         title={selectedReport ? 'Attendance' : 'Select Class'}
         subtitle={selectedReport ? `${selectedReport.courseCode} · ${selectedReport.className}` : 'Choose a report to view attendance'}
@@ -165,11 +173,9 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   statsText: { color: COLORS.white, fontWeight: '700', fontSize: FONTS.sizes.md },
-
   attCard: { marginBottom: 10 },
   studentName: { fontSize: FONTS.sizes.md, fontWeight: '700', color: COLORS.navy },
   studentId: { fontSize: FONTS.sizes.xs, color: COLORS.gray, marginTop: 2 },
-
   courseCode: { fontSize: FONTS.sizes.xs, fontWeight: '700', color: COLORS.gold, textTransform: 'uppercase' },
   courseName: { fontSize: FONTS.sizes.md, fontWeight: '700', color: COLORS.navy, marginTop: 2 },
   classMeta: { fontSize: FONTS.sizes.xs, color: COLORS.gray, marginTop: 4 },
